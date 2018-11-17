@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-xs-9 col-sm-9 col-md-9  col-lg-9">
+        <h5>用户列表</h5>
+    </div>
+    <div class="col-xs-3 col-sm-3 col-md-3  col-lg-3">
+        <a href="{:url('access/set')}" class="btn btn-link pull-right">添加权限</a>
+    </div>
+</div>
+<hr/>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>权限</th>
+            <th>Urls</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {if condition="$list"}
+        {volist name="list" id="vo"}
+        {php}
+            $tmp_urls = json_decode( $vo['urls'],true);
+            $tmp_urls = $tmp_urls?$tmp_urls:[];
+        {/php}
+        <tr>
+            <td>{$vo.title}</td>
+            <td>{:implode('<br/>',$tmp_urls)}</td>
+            <td>
+                <a href="{:url('set',['id'=>$vo.id])}" class="btn btn-link">编辑</a>
+            </td>
+        </tr>
+        {/volist}
+        {else/}
+        <tr>
+            <td colspan="2">暂无权限</td>
+        </tr>
+        {/if}
+        </tbody>
+    </table>
+
+</div>
